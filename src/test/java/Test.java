@@ -11,20 +11,19 @@ public class Test {
 
 
     @Before
-    public void tierUp(){
-        driver = new ChromeDriver( new ChromeOptions().addArguments("--incognito"));
+    public void tierUp() {
+        driver = new ChromeDriver(new ChromeOptions().addArguments("--incognito"));
     }
 
     @org.junit.Test
-    public void checkPageTitle(){
+    public void checkPageTitle() {
         driver.get(BASIC_URL);
         String title = driver.getTitle();
         Assert.assertEquals("Google", title);
     }
 
     @After
-    public void tierDown(){
-        driver.close();
+    public void tierDown() {
         driver.quit();
     }
 
