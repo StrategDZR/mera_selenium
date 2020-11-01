@@ -5,7 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
-public class Test {
+public class TestTask1 {
     private WebDriver driver;
     private final String BASIC_URL = "https://google.com";
 
