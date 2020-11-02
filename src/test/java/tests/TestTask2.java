@@ -13,6 +13,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.AdminMainPage;
 import pages.LoginPage;
+import java.util.concurrent.TimeUnit;
 
 public class TestTask2 {
     private static final String BASIC_URL = "http://localhost/litecart/admin/";
@@ -27,6 +28,7 @@ public class TestTask2 {
     @Before
     public void tierUp() {
         driver = new ChromeDriver(new ChromeOptions().addArguments("--incognito"));
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         wait = new WebDriverWait(driver, 10);
         loginPage = new LoginPage();
         adminMainPage = new AdminMainPage();
