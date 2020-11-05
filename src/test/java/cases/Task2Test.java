@@ -1,4 +1,4 @@
-package tests;
+package cases;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -15,7 +15,7 @@ import pages.AdminMainPage;
 import pages.LoginPage;
 import java.util.concurrent.TimeUnit;
 
-public class TestTask2 {
+public class Task2Test {
     private static final String BASIC_URL = "http://localhost/litecart/admin/";
     private static final String ADMIN_LOGIN = "admin";
     private static final String ADMIN_PASS = "admin";
@@ -26,7 +26,7 @@ public class TestTask2 {
     AdminMainPage adminMainPage;
 
     @Before
-    public void tierUp() {
+    public void setUp() {
         driver = new ChromeDriver(new ChromeOptions().addArguments("--incognito"));
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         wait = new WebDriverWait(driver, 10);
@@ -48,7 +48,7 @@ public class TestTask2 {
     }
 
     @After
-    public void tierDown(){
+    public void tearDown(){
         driver.quit();
     }
 }
