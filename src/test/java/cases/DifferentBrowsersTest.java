@@ -1,4 +1,4 @@
-package tests;
+package cases;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -6,19 +6,12 @@ import org.junit.Before;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.firefox.FirefoxBinary;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.firefox.FirefoxOptions;
-import org.openqa.selenium.ie.InternetExplorerDriver;
-import org.openqa.selenium.ie.InternetExplorerOptions;
-import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.util.concurrent.TimeUnit;
 
-public class TestBrowsers {
+public class DifferentBrowsersTest {
     private WebDriver driver;
     private final String BASIC_URL = "https://google.com";
-
 
     @Before
     public void tierUp() {
@@ -29,7 +22,7 @@ public class TestBrowsers {
 //        driver = new FirefoxDriver();
 
 //        driver = new FirefoxDriver(new FirefoxOptions().setBinary("C:\\Program Files\\Firefox Nightly\\firefox.exe"));
-        
+
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }
 

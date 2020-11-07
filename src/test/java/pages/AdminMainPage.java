@@ -19,7 +19,7 @@ public class AdminMainPage {
         wait = new WebDriverWait(driver, 10);
     }
 
-    public void checkAdminPageIsOpened(){
+    public void checkAdminPageIsOpened() {
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath(logoutButton)));
         WebElement logoutButtonEl = driver.findElement(By.xpath(logoutButton));
         Assert.assertTrue(logoutButtonEl.isDisplayed());

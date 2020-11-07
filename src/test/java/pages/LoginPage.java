@@ -18,11 +18,11 @@ public class LoginPage {
         this.driver = driver;
     }
 
-    public void loginAsAdmin(){
+    public void loginAsAdmin() {
         login(ADMIN_LOGIN, ADMIN_PASS);
     }
 
-    public void login(String username, String password){
+    public void login(String username, String password) {
         driver.findElement(By.xpath(usernameInput)).sendKeys(username);
         driver.findElement(By.xpath(passwordInput)).sendKeys(password);
         driver.findElement(By.xpath(loginButton)).click();

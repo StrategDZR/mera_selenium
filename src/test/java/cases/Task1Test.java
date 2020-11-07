@@ -12,7 +12,6 @@ public class Task1Test {
     private WebDriver driver;
     private final String BASIC_URL = "https://google.com";
 
-
     @Before
     public void setUp() {
         driver = new ChromeDriver(new ChromeOptions().addArguments("--incognito"));
@@ -29,5 +28,4 @@ public class Task1Test {
     public void tearDown() {
         driver.quit();
     }
-
 }

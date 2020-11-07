@@ -32,7 +32,7 @@ public class Task2Test {
     }
 
     @Test
-    public void testLoginToAdmin(){
+    public void testLoginToAdmin() {
         //следующие две строки тоже вынесу в отдельный класс-хелпер в следующем задании
         driver.navigate().to(BASIC_URL);
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath(loginPage.loginButton)));
@@ -42,7 +42,7 @@ public class Task2Test {
     }
 
     @After
-    public void tearDown(){
+    public void tearDown() {
         driver.quit();
     }
 }
