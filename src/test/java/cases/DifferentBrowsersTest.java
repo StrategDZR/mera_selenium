@@ -3,6 +3,7 @@ package cases;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -14,7 +15,7 @@ public class DifferentBrowsersTest {
     private final String BASIC_URL = "https://google.com";
 
     @Before
-    public void tierUp() {
+    public void setUp() {
         driver = new ChromeDriver(new ChromeOptions().addArguments("--incognito"));
 
 //        driver = new InternetExplorerDriver(new InternetExplorerOptions().ignoreZoomSettings());
@@ -26,7 +27,7 @@ public class DifferentBrowsersTest {
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }
 
-    @org.junit.Test
+    @Test
     public void checkPageTitle() {
         driver.get(BASIC_URL);
         String title = driver.getTitle();
@@ -34,8 +35,7 @@ public class DifferentBrowsersTest {
     }
 
     @After
-    public void tierDown() {
+    public void tearDown() {
         driver.quit();
     }
-
 }
