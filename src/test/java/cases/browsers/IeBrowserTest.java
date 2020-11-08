@@ -20,7 +20,6 @@ public class IeBrowserTest {
     public void setUp() {
         driver = new InternetExplorerDriver(new InternetExplorerOptions().ignoreZoomSettings());
         driver.manage().timeouts().implicitlyWait(8, TimeUnit.SECONDS);
-        wait = new WebDriverWait(driver, 5);
     }
 
     @Test
