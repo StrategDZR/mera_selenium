@@ -1,20 +1,22 @@
-package cases;
+package cases.browsers;
 
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxDriver;
 
-public class Task1Test {
+import java.util.concurrent.TimeUnit;
+
+public class FirefoxBrowserTest {
     private WebDriver driver;
     private final String BASIC_URL = "https://google.com";
 
     @Before
     public void setUp() {
-        driver = new ChromeDriver(new ChromeOptions().addArguments("--incognito"));
+        driver = new FirefoxDriver();
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }
 
     @Test

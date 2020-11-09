@@ -1,4 +1,4 @@
-package cases;
+package cases.browsers;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -8,13 +8,16 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
-public class Task1Test {
+import java.util.concurrent.TimeUnit;
+
+public class ChromeBrowserTest {
     private WebDriver driver;
     private final String BASIC_URL = "https://google.com";
 
     @Before
     public void setUp() {
         driver = new ChromeDriver(new ChromeOptions().addArguments("--incognito"));
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }
 
     @Test
