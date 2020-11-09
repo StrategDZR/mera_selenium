@@ -36,21 +36,21 @@ public class MenuPage {
 
     public String customersMenuItem = "//span[contains(text(),\"Customers\")]";
     public String customersSubMenuItem = "//ul[@class=\"docs\"]//span[contains(., \"Customers\")]";
-    public String newslettersSubMenuItem = "//span[contains(text(),\"Newsletters\")]";
+    public String newsletterSubMenuItem = "//span[contains(text(),\"Newsletter\")]";
 
-    public String geoZonesMenuItem = "//span[contains(text(),\"GeoZones\")]";
+    public String geoZonesMenuItem = "//span[contains(text(),\"Geo Zones\")]";
 
     public String languagesMenuItem = "//span[contains(text(),\"Languages\")]";
     public String languagesSubMenuItem = "//li[@id=\"doc-languages\"]//span[contains(., \"Languages\")]";
     public String storageEncodingSubMenuItem = "//span[contains(text(),\"Storage Encoding\")]";
 
     public String modulesMenuItem = "//span[contains(text(),\"Modules\")]";
-    public String customerSubMenuItem = "//li[@id=\"doc-customer\"]//span[contains(., \"Customers\")]";
+    public String customerSubMenuItem = "//li[@id=\"doc-customer\"]//span[contains(., \"Customer\")]";
     public String shippingSubMenuItem = "//span[contains(text(),\"Shipping\")]";
     public String paymentSubMenuItem = "//span[contains(text(),\"Payment\")]";
     public String orderTotalSubMenuItem = "//span[contains(text(),\"Order Total\")]";
     public String orderSuccessSubMenuItem = "//span[contains(text(),\"Order Success\")]";
-    public String orderActionsSubMenuItem = "//span[contains(text(),\"Order Actions\")]";
+    public String orderActionsSubMenuItem = "//span[contains(text(),\"Order Action\")]";
     public String backgroundJobsSubMenuItem = "//span[contains(text(),\"Background Jobs\")]";
 
     public String ordersMenuItem = "//span[contains(text(),\"Orders\")]";
@@ -65,7 +65,7 @@ public class MenuPage {
     public String mostShoppingCustomersMenuItem = "//span[contains(text(),\"Most Shopping Customers\")]";
 
     public String settingsMenuItem = "//span[contains(text(),\"Settings\")]";
-    public String storeInfoMenuItem = "//span[contains(text(),\"Store Info\")]";
+    public String storeInfoSubMenuItem = "//span[contains(text(),\"Store Info\")]";
     public String defaultsSubMenuItem = "//span[contains(text(),\"Defaults\")]";
     public String generalSubMenuItem = "//span[contains(text(),\"General\")]";
     public String listingsSubMenuItem = "//span[contains(text(),\"Listings\")]";
