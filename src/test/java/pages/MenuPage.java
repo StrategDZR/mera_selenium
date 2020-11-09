@@ -6,10 +6,13 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class MenuPage {
     private WebDriver driver;
     private WebDriverWait wait;
+    Logger logger = LoggerFactory.getLogger(MenuPage.class);
 
     //Locators
     public String appearenceMenuItem = "//span[contains(text(),\"Appearence\")]";
@@ -93,10 +96,14 @@ public class MenuPage {
     }
 
     public void clickOnMenuItem(String locator) {
+        logger.info("Try to click in " + locator);
+        WebElement el = driver.findElement(By.xpath(locator));
+        wait.until(ExpectedConditions.visibilityOf(el));
         driver.findElement(By.xpath(locator)).click();
     }
 
     public void checkSubMenuIsDisplayed(String subMenuText) {
+        logger.info("Check if " + subMenuText + " is displayed");
         String locator = "//span[contains(., \"" + subMenuText + "\")]";
         WebElement el = driver.findElement(By.xpath(locator));
         wait.until(ExpectedConditions.visibilityOf(el));
@@ -104,6 +111,7 @@ public class MenuPage {
     }
 
     public void checkH1ElementIsDisplayed(String h1Text) {
+        logger.info("Check if " + h1Text + " h1 element is displayed");
         String locator = "//h1[contains(., \"" + h1Text + "\")]";
         WebElement el = driver.findElement(By.xpath(locator));
         wait.until(ExpectedConditions.visibilityOf(el));
