@@ -1,22 +1,21 @@
-package tests;
+package cases;
 
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.AdminMainPage;
 import pages.LoginPage;
+
 import java.util.concurrent.TimeUnit;
 import static config.app.*;
 
-public class TestTask2 {
+public class Task2Test {
     private WebDriver driver;
     private WebDriverWait wait;
 
@@ -24,29 +23,26 @@ public class TestTask2 {
     AdminMainPage adminMainPage;
 
     @Before
-    public void tierUp() {
+    public void setUp() {
         driver = new ChromeDriver(new ChromeOptions().addArguments("--incognito"));
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         wait = new WebDriverWait(driver, 10);
-        loginPage = new LoginPage();
-        adminMainPage = new AdminMainPage();
+        loginPage = new LoginPage(driver);
+        adminMainPage = new AdminMainPage(driver);
     }
 
     @Test
-    public void testLoginToAdmin(){
+    public void testLoginToAdmin() {
+        //следующие две строки тоже вынесу в отдельный класс-хелпер в следующем задании
         driver.navigate().to(BASIC_URL);
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath(loginPage.loginButton)));
-        driver.findElement(By.xpath(loginPage.usernameInput)).sendKeys(ADMIN_LOGIN);
-        driver.findElement(By.xpath(loginPage.passwordInput)).sendKeys(ADMIN_PASS);
-        driver.findElement(By.xpath(loginPage.loginButton)).click();
 
-        wait.until(ExpectedConditions.elementToBeClickable(By.xpath(adminMainPage.logoutButton)));
-        WebElement logoutButton = driver.findElement(By.xpath(adminMainPage.logoutButton));
-        Assert.assertTrue(logoutButton.isDisplayed());
+        loginPage.loginAsAdmin();
+        adminMainPage.checkAdminPageIsOpened();
     }
 
     @After
-    public void tierDown(){
+    public void tearDown() {
         driver.quit();
     }
 }
