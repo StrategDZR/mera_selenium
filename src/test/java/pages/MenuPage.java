@@ -9,86 +9,112 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MenuPage {
     private WebDriver driver;
     private WebDriverWait wait;
     Logger logger = LoggerFactory.getLogger(MenuPage.class);
 
-    //Locators
-    public String appearenceMenuItem = "//span[contains(text(),\"Appearence\")]";
-    public String templateSubMenuItem = "//span[contains(text(),\"Template\")]";
-    public String logotypeSubMenuItem = "//span[contains(text(),\"Logotype\")]";
+    public enum ListOfMenuItems {
+        APPEARANCE("", "Appearence", ""),
+        APPEARANCE_TEMPLATE("doc-template", "Template", "Template"),
+        APPEARANCE_LOGOTYPE("doc-logotype", "Logotype", "Logotype"),
+        CATALOG("", "Catalog", ""),
+        CATALOG_CATALOG("doc-catalog", "Catalog", "Catalog"),
+        CATALOG_PRODUCT_GROUPS("doc-product_groups", "Product Groups", "Product Groups"),
+        CATALOG_OPTIONS_GROUPS("doc-option_groups", "Option Groups", "Option Groups"),
+        CATALOG_MANUFACTURERS("doc-manufacturers", "Manufacturers", "Manufacturers"),
+        CATALOG_SUPPLIERS("doc-suppliers", "Suppliers", "Suppliers"),
+        CATALOG_DELIVERY_STATUSES("doc-delivery_statuses", "Delivery Statuses", "Delivery Statuses"),
+        CATALOG_SOLD_OUT_STATUSES("doc-sold_out_statuses", "Sold Out Statuses", "Sold Out Statuses"),
+        CATALOG_QUANTITY_UNITS("doc-quantity_units", "Quantity Unit", "Quantity Units"),
+        CATALOG_CSV_IMPORT_EXPORT("doc-csv", "CSV Import/Export", "CSV Import/Export"),
+        COUNTRIES("", "Countries", ""),
+        CURRENCIES("", "Currencies", ""),
+        CUSTOMERS("", "Customers", ""),
+        CUSTOMERS_CUSTOMERS("doc-customers", "Customers", "Customers"),
+        CUSTOMERS_CSV_IMPORT_EXPORT("doc-csv", "CSV Import/Export", "CSV Import/Export"),
+        CUSTOMERS_NEWSLETTER("doc-newsletter", "Newsletter", "Newsletter"),
+        GEOZONES("", "Geo Zones", ""),
+        LANGUAGES("", "Languages", ""),
+        LANGUAGES_LANGUAGES("doc-languages", "Languages", "Languages"),
+        LANGUAGES_STORAGE_ENCODING("doc-storahe_encoding", "Storage Encoding", "Storage Encoding"),
+        MODULES("", "Modules", ""),
+        MODULES_CUSTOMER("doc-customer", "Customer", "Customer Modules"),
+        MODULES_SHIPPING("doc-shipping", "Shipping", "Shipping Modules"),
+        MODULES_PAYMENT("doc-payment", "Payment", "Payment Modules"),
+        MODULES_ORDER_TOTAL("doc-order_total", "Order Total", "Order Total Modules"),
+        MODULES_ORDER_SUCCESS("doc-order_success", "Order Success", "Order Success Modules"),
+        MODULES_ORDER_ACTION("doc-order_action", "Order Action", "Order Action Modules"),
+        MODULES_BACKGROUND_JOBS("doc-jobs", "Background Jobs", "Job Modules"),
+        ORDERS("", "Orders", ""),
+        ORDERS_ORDERS("doc-orders", "Orders", "Orders"),
+        ORDERS_ORDER_STATUSES("doc-order_statuses", "Order Statuses", "Order Statuses"),
+        PAGES("", "Pages", ""),
+        REPORTS("", "Reports", ""),
+        REPORTS_MONTHLY_SALES("doc-monthly_sales", "Monthly Sales", "Monthly Sales"),
+        REPORTS_MOST_SOLD_PRODUCTS("doc-most_sold_products", "Most Sold Products", "Most Sold Products"),
+        REPORTS_MOST_SHOPPING_CUSTOMERS("doc-most_shopping_customers", "Most Shopping Customers", "Most Shopping Customers"),
+        SETTINGS("", "Settings", ""),
+        SETTINGS_STORE_INFO("doc-store_info", "Store Info", "Settings"),
+        SETTINGS_DEFAULTS("doc-defaults", "Defaults", "Settings"),
+        SETTINGS_GENERAL("doc-general", "General", "Settings"),
+        SETTINGS_LISTINGS("doc-listings", "Listings", "Settings"),
+        SETTINGS_IMAGES("doc-images", "Images", "Settings"),
+        SETTINGS_CHECKOUT("doc-checkout", "Checkout", "Settings"),
+        SETTINGS_ADVANCED("doc-advanced", "Advanced", "Settings"),
+        SETTINGS_SECURITY("doc-security", "Security", "Settings"),
+        SLIDES("", "Slides", ""),
+        TAX("", "Tax", ""),
+        TAX_CLASSES("doc-tax_classes", "Tax Classes", "Tax Classes"),
+        TAX_RATES("doc-tax_rates", "Tax Rates", "Tax Rates"),
+        TRANSLATIONS("", "Translations", ""),
+        TRANSLATIONS_SEARCH_TRANSLATIONS("doc-search", "Search Translations", "Search Translations"),
+        TRANSLATIONS_SCAN_FILES("doc-scan", "Scan Files", "Search Translations"),
+        TRANSLATIONS_CSV_IMPORT_EXPORT("doc-csv", "CSV Import/Export", "CSV Import/Export"),
+        USERS("", "Users", ""),
+        VQMODS("", "vQmods", ""),
+        VQMODS_VQMODS("doc-vqmods", "vQmods", "vQmods"),
+        ;
 
-    public String catalogMenuItem = "//span[contains(text(),\"Catalog\")]";
-    public String catalogSubMenuItem = "//li[@id=\"doc-catalog\"]//span[contains(., \"Catalog\")]";
-    public String productGroupsSubMenuItem = "//span[contains(text(),\"Product Groups\")]";
-    public String optionGroupsSubMenuItem = "//span[contains(text(),\"Option Groups\")]";
-    public String manufacturersSubMenuItem = "//span[contains(text(),\"Manufacturers\")]";
-    public String suppliersSubMenuItem = "//span[contains(text(),\"Suppliers\")]";
-    public String deliveryStatusesSubMenuItem = "//span[contains(text(),\"Delivery Statuses\")]";
-    public String soldOutStatusesSubMenuItem = "//span[contains(text(),\"Sold Out Statuses\")]";
-    public String quantityUnitsSubMenuItem = "//span[contains(text(),\"Quantity Units\")]";
-    public String csvImportExportSubMenuItem = "//span[contains(text(),\"CSV Import/Export\")]";
+        private final String id;
+        private final String text;
+        private final String h1;
 
-    public String countriesMenuItem = "//span[contains(text(),\"Countries\")]";
+        ListOfMenuItems(String id, String text, String h1) {
+            this.id = id;
+            this.text = text;
+            this.h1 = h1;
+        }
 
-    public String currenciesMenuItem = "//span[contains(text(),\"Currencies\")]";
+        private String getId() {
+            return id;
+        }
 
-    public String customersMenuItem = "//span[contains(text(),\"Customers\")]";
-    public String customersSubMenuItem = "//ul[@class=\"docs\"]//span[contains(., \"Customers\")]";
-    public String newsletterSubMenuItem = "//span[contains(text(),\"Newsletter\")]";
+        private String getText() {
+            return text;
+        }
 
-    public String geoZonesMenuItem = "//span[contains(text(),\"Geo Zones\")]";
+        private String getH1() {
+            return h1;
+        }
+    }
 
-    public String languagesMenuItem = "//span[contains(text(),\"Languages\")]";
-    public String languagesSubMenuItem = "//li[@id=\"doc-languages\"]//span[contains(., \"Languages\")]";
-    public String storageEncodingSubMenuItem = "//span[contains(text(),\"Storage Encoding\")]";
+    public List<List<String>> getMenuItems() {
 
-    public String modulesMenuItem = "//span[contains(text(),\"Modules\")]";
-    public String customerSubMenuItem = "//li[@id=\"doc-customer\"]//span[contains(., \"Customer\")]";
-    public String shippingSubMenuItem = "//span[contains(text(),\"Shipping\")]";
-    public String paymentSubMenuItem = "//span[contains(text(),\"Payment\")]";
-    public String orderTotalSubMenuItem = "//span[contains(text(),\"Order Total\")]";
-    public String orderSuccessSubMenuItem = "//span[contains(text(),\"Order Success\")]";
-    public String orderActionsSubMenuItem = "//span[contains(text(),\"Order Action\")]";
-    public String backgroundJobsSubMenuItem = "//span[contains(text(),\"Background Jobs\")]";
+        List<List<String>> allElements = new ArrayList<>();
+        List<String> oneElement = new ArrayList<>();
 
-    public String ordersMenuItem = "//span[contains(text(),\"Orders\")]";
-    public String ordersSubMenuItem = "//li[@id=\"doc-orders\"]//span[contains(., \"Orders\")]";
-    public String orderStatusesSubMenuItem = "//span[contains(text(),\"Order Statuses\")]";
-
-    public String pagesMenuItem = "//span[contains(text(),\"Pages\")]";
-
-    public String reportsMenuItem = "//span[contains(text(),\"Reports\")]";
-    public String monthlySalesMenuItem = "//span[contains(text(),\"Monthly Sales\")]";
-    public String mostSoldProductsMenuItem = "//span[contains(text(),\"Most Sold Products\")]";
-    public String mostShoppingCustomersMenuItem = "//span[contains(text(),\"Most Shopping Customers\")]";
-
-    public String settingsMenuItem = "//span[contains(text(),\"Settings\")]";
-    public String storeInfoSubMenuItem = "//span[contains(text(),\"Store Info\")]";
-    public String defaultsSubMenuItem = "//span[contains(text(),\"Defaults\")]";
-    public String generalSubMenuItem = "//span[contains(text(),\"General\")]";
-    public String listingsSubMenuItem = "//span[contains(text(),\"Listings\")]";
-    public String imagesSubMenuItem = "//span[contains(text(),\"Images\")]";
-    public String checkoutSubMenuItem = "//span[contains(text(),\"Checkout\")]";
-    public String advancedSubMenuItem = "//span[contains(text(),\"Advanced\")]";
-    public String securitySubMenuItem = "//span[contains(text(),\"Security\")]";
-
-    public String slidesMenuItem = "//span[contains(text(),\"Slides\")]";
-
-    public String taxMenuItem = "//span[contains(text(),\"Tax\")]";
-    public String taxClassesSubMenuItem = "//span[contains(text(),\"Tax Classes\")]";
-    public String taxRatesSubMenuItem = "//span[contains(text(),\"Tax Rates\")]";
-
-    public String translationsMenuItem = "//span[contains(text(),\"Translations\")]";
-    public String searchTranslationsSubMenuItem = "//span[contains(text(),\"Search Translations\")]";
-    public String scanFilesSubMenuItem = "//span[contains(text(),\"Scan Files\")]";
-
-    public String usersMenuItem = "//span[contains(text(),\"Users\")]";
-
-    public String vqmodsMenuItem = "//span[contains(text(),\"vQmods\")]";
-    public String vqmodsSubMenuItem = "//li[@id=\"doc-vqmods\"]//span[contains(., \"vQmods\")]";
-
+        for (ListOfMenuItems item : ListOfMenuItems.values()) {
+            oneElement.add(item.getId());
+            oneElement.add(item.getText());
+            oneElement.add(item.getH1());
+            allElements.add(oneElement);
+        }
+        return allElements;
+    }
 
     public MenuPage(WebDriver driver) {
         this.driver = driver;
@@ -102,19 +128,19 @@ public class MenuPage {
         driver.findElement(By.xpath(locator)).click();
     }
 
-    public void checkSubMenuIsDisplayed(String subMenuText) {
-        logger.info("Check if " + subMenuText + " is displayed");
-        String locator = "//span[contains(., \"" + subMenuText + "\")]";
+    public void checkMenuElementIsDisplayed(String element, String text) {
+        logger.info("Check if " + element + " element with " + text + " text is displayed");
+        String locator = "//" + element + "[contains(., \"" + text + "\")]";
         WebElement el = driver.findElement(By.xpath(locator));
         wait.until(ExpectedConditions.visibilityOf(el));
         Assert.assertTrue(el.isDisplayed());
     }
 
-    public void checkH1ElementIsDisplayed(String h1Text) {
-        logger.info("Check if " + h1Text + " h1 element is displayed");
-        String locator = "//h1[contains(., \"" + h1Text + "\")]";
-        WebElement el = driver.findElement(By.xpath(locator));
-        wait.until(ExpectedConditions.visibilityOf(el));
-        Assert.assertTrue(el.isDisplayed());
+    public String getMenuLocator(String id, String text) {
+        if (id.isEmpty()) {
+            return "//span[contains(text(),\"" + text + "\")]";
+        } else {
+            return "//li[@id=\"" + id + "\"]//span[contains(., \"" + text + "\")]";
+        }
     }
 }
