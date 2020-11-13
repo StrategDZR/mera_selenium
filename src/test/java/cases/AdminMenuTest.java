@@ -50,11 +50,11 @@ public class AdminMenuTest {
 
         loginPage.loginAsAdmin();
 
-        List<List<String>> menuItems = menuPage.getMenuItems();
-        for (List<String> menuItem : menuItems) {
-            menuPage.clickOnMenuItem(menuPage.getMenuLocator(menuItem.get(0), menuItem.get(1)));
-            if (!menuItem.get(3).isEmpty()) {
-                menuPage.checkMenuElementIsDisplayed("h1", menuItem.get(2));
+        List<MenuPage.ListOfMenuItems> menuItems = menuPage.getMenuItems();
+        for (MenuPage.ListOfMenuItems menuItem : menuItems) {
+            menuPage.clickOnMenuItem(menuPage.getMenuLocator(menuItem.getId(), menuItem.getText()));
+            if (!menuItem.getH1().isEmpty()) {
+                menuPage.checkMenuElementIsDisplayed("h1", menuItem.getH1());
             }
         }
     }

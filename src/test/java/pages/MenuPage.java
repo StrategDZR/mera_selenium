@@ -10,7 +10,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class MenuPage {
     private WebDriver driver;
@@ -40,7 +42,7 @@ public class MenuPage {
         GEOZONES("", "Geo Zones", ""),
         LANGUAGES("", "Languages", ""),
         LANGUAGES_LANGUAGES("doc-languages", "Languages", "Languages"),
-        LANGUAGES_STORAGE_ENCODING("doc-storahe_encoding", "Storage Encoding", "Storage Encoding"),
+        LANGUAGES_STORAGE_ENCODING("doc-storage_encoding", "Storage Encoding", "Storage Encoding"),
         MODULES("", "Modules", ""),
         MODULES_CUSTOMER("doc-customer", "Customer", "Customer Modules"),
         MODULES_SHIPPING("doc-shipping", "Shipping", "Shipping Modules"),
@@ -72,7 +74,7 @@ public class MenuPage {
         TAX_RATES("doc-tax_rates", "Tax Rates", "Tax Rates"),
         TRANSLATIONS("", "Translations", ""),
         TRANSLATIONS_SEARCH_TRANSLATIONS("doc-search", "Search Translations", "Search Translations"),
-        TRANSLATIONS_SCAN_FILES("doc-scan", "Scan Files", "Search Translations"),
+        TRANSLATIONS_SCAN_FILES("doc-scan", "Scan Files", " Scan Files For Translations"),
         TRANSLATIONS_CSV_IMPORT_EXPORT("doc-csv", "CSV Import/Export", "CSV Import/Export"),
         USERS("", "Users", ""),
         VQMODS("", "vQmods", ""),
@@ -89,31 +91,21 @@ public class MenuPage {
             this.h1 = h1;
         }
 
-        private String getId() {
+        public String getId() {
             return id;
         }
 
-        private String getText() {
+        public String getText() {
             return text;
         }
 
-        private String getH1() {
+        public String getH1() {
             return h1;
         }
     }
 
-    public List<List<String>> getMenuItems() {
-
-        List<List<String>> allElements = new ArrayList<>();
-        List<String> oneElement = new ArrayList<>();
-
-        for (ListOfMenuItems item : ListOfMenuItems.values()) {
-            oneElement.add(item.getId());
-            oneElement.add(item.getText());
-            oneElement.add(item.getH1());
-            allElements.add(oneElement);
-        }
-        return allElements;
+    public List<ListOfMenuItems> getMenuItems() {
+        return Arrays.stream(ListOfMenuItems.values()).collect(Collectors.toCollection(ArrayList::new));
     }
 
     public MenuPage(WebDriver driver) {
