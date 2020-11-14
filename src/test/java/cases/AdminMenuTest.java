@@ -12,8 +12,10 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.LoginPage;
 import pages.MenuPage;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Stream;
 
 import static config.app.BASIC_URL;
 
@@ -51,12 +53,12 @@ public class AdminMenuTest {
         loginPage.loginAsAdmin();
 
         List<MenuPage.ListOfMenuItems> menuItems = menuPage.getMenuItems();
-        for (MenuPage.ListOfMenuItems menuItem : menuItems) {
-            menuPage.clickOnMenuItem(menuPage.getMenuLocator(menuItem.getId(), menuItem.getText()));
-            if (!menuItem.getH1().isEmpty()) {
-                menuPage.checkMenuElementIsDisplayed("h1", menuItem.getH1());
+        menuItems.forEach(item -> {
+            menuPage.clickOnMenuItem(menuPage.getMenuLocator(item.getId(), item.getText()));
+            if (!item.getH1().isEmpty()) {
+                menuPage.checkMenuElementIsDisplayed("h1", item.getH1());
             }
-        }
+        });
     }
 
     @After
