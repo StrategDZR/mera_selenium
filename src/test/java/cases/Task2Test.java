@@ -13,9 +13,9 @@ import pages.AdminMainPage;
 import pages.LoginPage;
 
 import java.util.concurrent.TimeUnit;
+import static config.app.*;
 
 public class Task2Test {
-    private static final String BASIC_URL = "http://localhost/litecart/admin/";
     private WebDriver driver;
     private WebDriverWait wait;
 

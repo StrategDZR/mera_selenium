@@ -3,11 +3,11 @@ package pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
+import static config.app.ADMIN_LOGIN;
+import static config.app.ADMIN_PASS;
+
 public class LoginPage {
     private WebDriver driver;
-    //в следующем задании вынесу креденщиалы в отдельный файл
-    private static final String ADMIN_LOGIN = "admin";
-    private static final String ADMIN_PASS = "admin";
 
     //Locators
     public String usernameInput = "//input[@name=\"username\"]";
