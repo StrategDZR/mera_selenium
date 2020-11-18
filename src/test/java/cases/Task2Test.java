@@ -34,7 +34,7 @@ public class Task2Test {
     @Test
     public void testLoginToAdmin() {
         //следующие две строки тоже вынесу в отдельный класс-хелпер в следующем задании
-        driver.navigate().to(BASIC_URL);
+        driver.navigate().to(LITECART_ADMIN);
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath(loginPage.loginButton)));
 
         loginPage.loginAsAdmin();
