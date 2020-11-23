@@ -8,6 +8,7 @@ package cases;
  */
 
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
@@ -43,7 +44,7 @@ public class ShopMainPageHasStickersTest {
 
         List<WebElement> products = shopMainPage.getAllProducts();
         products.forEach(product ->
-            shopMainPage.checkProductHasOnlyOneSticker(product)
+                Assert.assertEquals(1, shopMainPage.getProductStickersQty(product))
         );
     }
 
