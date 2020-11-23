@@ -4,7 +4,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
 
@@ -15,8 +14,7 @@ public class AdminGeoZonesPage extends AbstractPage {
     private final String geoZonePageElement = "//form[@name=\"geo_zones_form\"]";
 
     public AdminGeoZonesPage(WebDriver driver) {
-        this.driver = driver;
-        wait = new WebDriverWait(driver, 10);
+        super(driver);
         wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(geoZonePageElement)));
     }
 

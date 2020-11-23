@@ -4,10 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.Formatter;
 import java.util.List;
 
@@ -23,8 +20,7 @@ public class AdminCountriesPage extends AbstractPage {
     private final String zoneNamesElement = "//table[@id=\"table-zones\"]//tr/td/input[contains(@name, \"[name]\")][not(@value=\"\")]";
 
     public AdminCountriesPage(WebDriver driver) {
-        this.driver = driver;
-        wait = new WebDriverWait(driver, 10);
+        super(driver);
         wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(countryPageElement)));
     }
 

@@ -18,6 +18,11 @@ public class AbstractPage {
     public WebDriverWait wait;
     Logger logger = LoggerFactory.getLogger(AbstractPage.class);
 
+    public AbstractPage(WebDriver driver) {
+        this.driver = driver;
+        wait = new WebDriverWait(driver, 10);
+    }
+
     public List<WebElement> getList(String locator) {
         wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(locator)));
         return driver.findElements(By.xpath(locator));
