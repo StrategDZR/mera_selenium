@@ -15,7 +15,6 @@ package cases;
 
 import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebElement;
 import pages.AdminCountriesPage;
@@ -31,16 +30,10 @@ public class SortingCountriesAndGeozonesTest extends AbstractTest {
     AdminCountriesPage adminCountriesPage;
     AdminGeoZonesPage adminGeoZonesPage;
 
-    @Before
-    public void setUp() {
-        super.setUp();
-        adminCountriesPage = new AdminCountriesPage(driver);
-        adminGeoZonesPage = new AdminGeoZonesPage(driver);
-    }
-
     @Test
     public void testAlphabeticalOrderOfCountries() {
         openPageAndLoginAsAdmin(LITECART_ADMIN + "?app=countries&doc=countries");
+        adminCountriesPage = new AdminCountriesPage(driver);
         List<WebElement> countries = adminCountriesPage.getCountriesList();
         Assert.assertTrue(adminCountriesPage.listIsSortedAlphabetically(countries));
     }
@@ -48,6 +41,7 @@ public class SortingCountriesAndGeozonesTest extends AbstractTest {
     @Test
     public void testAlphabeticalOrderOfZoneCountries() {
         openPageAndLoginAsAdmin(LITECART_ADMIN + "?app=countries&doc=countries");
+        adminCountriesPage = new AdminCountriesPage(driver);
         List<WebElement> countries = adminCountriesPage.getCountriesList();
         List<String> countryNamesWithNotZeroZones = new ArrayList<>();
 
@@ -68,6 +62,7 @@ public class SortingCountriesAndGeozonesTest extends AbstractTest {
     @Test
     public void testAlphabeticalOrderOfGeoZones() {
         openPageAndLoginAsAdmin(LITECART_ADMIN + "?app=geo_zones&doc=geo_zones");
+        adminGeoZonesPage = new AdminGeoZonesPage(driver);
         List<WebElement> geoZones = adminGeoZonesPage.getGeoZonesList();
         Assert.assertTrue(adminGeoZonesPage.listIsSortedAlphabetically(geoZones));
     }

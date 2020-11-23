@@ -5,8 +5,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -15,21 +13,19 @@ import java.util.List;
 
 import static java.lang.Integer.parseInt;
 
-public class AdminCountriesPage {
-    private WebDriver driver;
-    private WebDriverWait wait;
-    Logger logger = LoggerFactory.getLogger(AdminCountriesPage.class);
-
+public class AdminCountriesPage extends AbstractPage {
 
     //Locators
     private final String zonesCountElement = "(//form[@name=\"countries_form\"]//tr//td)[%d]";
     private final String countryNamesElement = "//td/a[@href][not(@title=\"Edit\")]";
     private final String findCountryByNameElement = "//form[@name=\"countries_form\"]//td/a[contains(., \"%s\")]";
+    private final String countryPageElement = "//form[@name=\"countries_form\"]";
     private final String zoneNamesElement = "//table[@id=\"table-zones\"]//tr/td/input[contains(@name, \"[name]\")][not(@value=\"\")]";
 
     public AdminCountriesPage(WebDriver driver) {
         this.driver = driver;
         wait = new WebDriverWait(driver, 10);
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(countryPageElement)));
     }
 
     public Integer getZones(int position) {
@@ -40,29 +36,12 @@ public class AdminCountriesPage {
         return parseInt(zone.getText());
     }
 
-    public boolean listIsSortedAlphabetically(List<WebElement> list) {
-        logger.info("Checking alphabetical order");
-        List<String> initialListOfNames = new ArrayList<>();
-        List<String> sortedListOfNames = new ArrayList<>();
-        list.forEach(element -> {
-            initialListOfNames.add(element.getText());
-            sortedListOfNames.add(element.getText());
-        });
-        sortedListOfNames.sort(Comparator.naturalOrder());
-        return initialListOfNames.equals(sortedListOfNames);
-    }
-
     public void openCountry(String countryName) {
         logger.info("Clicking in country name");
         Formatter formatter = new Formatter();
         String locator = String.valueOf(formatter.format(findCountryByNameElement, countryName));
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath(locator)));
         driver.findElement(By.xpath(locator)).click();
-    }
-
-    protected List<WebElement> getList(String locator) {
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(locator)));
-        return driver.findElements(By.xpath(locator));
     }
 
     public List<WebElement> getCountriesList() {

@@ -29,5 +29,4 @@ public class AbstractTest {
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath(loginPage.loginButton)));
         loginPage.loginAsAdmin();
     }
-
 }
