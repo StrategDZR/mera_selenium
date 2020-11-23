@@ -14,61 +14,40 @@ package cases;
  */
 
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.AdminCountriesPage;
 import pages.AdminGeoZonesPage;
-import pages.LoginPage;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import static config.app.LITECART_ADMIN;
 
-public class SortingCountriesAndGeozonesTest {
+public class SortingCountriesAndGeozonesTest extends AbstractTest {
 
-    private WebDriver driver;
-    private WebDriverWait wait;
-
-    LoginPage loginPage;
     AdminCountriesPage adminCountriesPage;
     AdminGeoZonesPage adminGeoZonesPage;
 
     @Before
-    public void tierUp() {
-        driver = new ChromeDriver(new ChromeOptions().addArguments("--incognito"));
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        wait = new WebDriverWait(driver, 10);
-
-        loginPage = new LoginPage(driver);
+    public void setUp() {
+        super.setUp();
         adminCountriesPage = new AdminCountriesPage(driver);
         adminGeoZonesPage = new AdminGeoZonesPage(driver);
     }
 
     @Test
     public void testAlphabeticalOrderOfCountries() {
-        driver.navigate().to(LITECART_ADMIN + "?app=countries&doc=countries");
-        wait.until(ExpectedConditions.elementToBeClickable(By.xpath(loginPage.loginButton)));
-        loginPage.loginAsAdmin();
-
+        openPageAndLoginAsAdmin(LITECART_ADMIN + "?app=countries&doc=countries");
         List<WebElement> countries = adminCountriesPage.getCountriesList();
-        adminCountriesPage.checkAlphabeticalOrderOfList(countries);
+        Assert.assertTrue(adminCountriesPage.listIsSortedAlphabetically(countries));
     }
 
     @Test
     public void testAlphabeticalOrderOfZoneCountries() {
-        driver.navigate().to(LITECART_ADMIN + "?app=countries&doc=countries");
-        wait.until(ExpectedConditions.elementToBeClickable(By.xpath(loginPage.loginButton)));
-        loginPage.loginAsAdmin();
-
+        openPageAndLoginAsAdmin(LITECART_ADMIN + "?app=countries&doc=countries");
         List<WebElement> countries = adminCountriesPage.getCountriesList();
         List<String> countryNamesWithNotZeroZones = new ArrayList<>();
 
@@ -81,19 +60,16 @@ public class SortingCountriesAndGeozonesTest {
         countryNamesWithNotZeroZones.forEach(country -> {
             adminCountriesPage.openCountry(country);
             List<WebElement> zonesList = adminCountriesPage.getZonesList();
-            adminCountriesPage.checkAlphabeticalOrderOfList(zonesList);
+            Assert.assertTrue(adminCountriesPage.listIsSortedAlphabetically(zonesList));
             driver.navigate().back();
         });
     }
 
     @Test
     public void testAlphabeticalOrderOfGeoZones() {
-        driver.navigate().to(LITECART_ADMIN + "?app=geo_zones&doc=geo_zones");
-        wait.until(ExpectedConditions.elementToBeClickable(By.xpath(loginPage.loginButton)));
-        loginPage.loginAsAdmin();
-
+        openPageAndLoginAsAdmin(LITECART_ADMIN + "?app=geo_zones&doc=geo_zones");
         List<WebElement> geoZones = adminGeoZonesPage.getGeoZonesList();
-        adminCountriesPage.checkAlphabeticalOrderOfList(geoZones);
+        Assert.assertTrue(adminGeoZonesPage.listIsSortedAlphabetically(geoZones));
     }
 
     @After

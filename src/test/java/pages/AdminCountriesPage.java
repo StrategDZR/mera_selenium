@@ -1,6 +1,5 @@
 package pages;
 
-import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -25,7 +24,7 @@ public class AdminCountriesPage {
     //Locators
     private final String zonesCountElement = "(//form[@name=\"countries_form\"]//tr//td)[%d]";
     private final String countryNamesElement = "//td/a[@href][not(@title=\"Edit\")]";
-    private final String findCountryByNameElement = "//td/a[contains(., \"%s\")]";
+    private final String findCountryByNameElement = "//form[@name=\"countries_form\"]//td/a[contains(., \"%s\")]";
     private final String zoneNamesElement = "//table[@id=\"table-zones\"]//tr/td/input[contains(@name, \"[name]\")][not(@value=\"\")]";
 
     public AdminCountriesPage(WebDriver driver) {
@@ -41,7 +40,7 @@ public class AdminCountriesPage {
         return parseInt(zone.getText());
     }
 
-    public void checkAlphabeticalOrderOfList(List<WebElement> list) {
+    public boolean listIsSortedAlphabetically(List<WebElement> list) {
         logger.info("Checking alphabetical order");
         List<String> initialListOfNames = new ArrayList<>();
         List<String> sortedListOfNames = new ArrayList<>();
@@ -50,7 +49,7 @@ public class AdminCountriesPage {
             sortedListOfNames.add(element.getText());
         });
         sortedListOfNames.sort(Comparator.naturalOrder());
-        Assert.assertEquals(initialListOfNames, sortedListOfNames);
+        return initialListOfNames.equals(sortedListOfNames);
     }
 
     public void openCountry(String countryName) {
@@ -61,7 +60,7 @@ public class AdminCountriesPage {
         driver.findElement(By.xpath(locator)).click();
     }
 
-    public List<WebElement> getList(String locator) {
+    protected List<WebElement> getList(String locator) {
         wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(locator)));
         return driver.findElements(By.xpath(locator));
     }
