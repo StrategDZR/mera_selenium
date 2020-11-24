@@ -12,12 +12,10 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.LoginPage;
 import pages.MenuPage;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-import java.util.stream.Stream;
 
-import static config.app.BASIC_URL;
+import static config.app.LITECART_ADMIN;
 
 /*
 Задание 7. Сделайте сценарий, проходящий по всем разделам админки
@@ -47,7 +45,7 @@ public class AdminMenuTest {
 
     @Test
     public void testAdminMenu() {
-        driver.navigate().to(BASIC_URL);
+        driver.navigate().to(LITECART_ADMIN);
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath(loginPage.loginButton)));
 
         loginPage.loginAsAdmin();
