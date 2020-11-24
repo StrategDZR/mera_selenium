@@ -1,6 +1,5 @@
 package pages;
 
-import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -27,11 +26,11 @@ public class ShopMainPage extends AbstractPage {
         return driver.findElements(By.xpath(productsElement));
     }
 
-    public void checkProductHasOnlyOneSticker(WebElement product) {
+    public int getProductStickersQty(WebElement product) {
         logger.info("Check '" + product.getText().replace("\n", " ") + "' product has only one sticker");
         List<WebElement> stickerEls = product.findElements(By.xpath(stickerElement));
         wait.until(ExpectedConditions.visibilityOf(stickerEls.get(0)));
-        Assert.assertEquals(1, stickerEls.size());
+        return stickerEls.size();
     }
 
     public void getProductDetails(int positionOfProduct){
