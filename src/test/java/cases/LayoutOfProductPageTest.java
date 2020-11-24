@@ -1,6 +1,14 @@
 package cases;
 
+import org.junit.After;
+import org.junit.Assert;
 import org.junit.Test;
+import pages.ShopMainPage;
+import pages.ShopProductPage;
+
+import java.util.HashMap;
+
+import static config.app.LITECART_SHOP_MAIN;
 
 /*
 Задание 10. Проверить, что открывается правильная страница товара
@@ -24,14 +32,41 @@ import org.junit.Test;
 
 public class LayoutOfProductPageTest extends AbstractTest {
 
-    @Test
-    public void checkTextIsTheSameOnMainAndProductPages(){
+    ShopProductPage productPage;
+    ShopMainPage mainPage;
 
+    @Test
+    public void checkTextIsTheSameOnMainAndProductPages() {
+        openPage(LITECART_SHOP_MAIN);
+
+        mainPage = new ShopMainPage(driver);
+        HashMap<String, String> detailsFromMainPage = mainPage.getProductDetailsFromMainPage("Campaigns", 1);
+        mainPage.openProductPage("Campaigns", 1);
+
+        productPage = new ShopProductPage(driver);
+        HashMap<String, String> detailsFromProductPage = productPage.getProductDetailsFromProductPage();
+
+        Assert.assertTrue(productPage.isNameTheSame(detailsFromMainPage, detailsFromProductPage));
     }
 
     @Test
-    public void checkPriceIsTheSameOnMainAndProductPages(){
+    public void checkPriceIsTheSameOnMainAndProductPages() {
+        openPage(LITECART_SHOP_MAIN);
 
+        mainPage = new ShopMainPage(driver);
+        HashMap<String, String> detailsFromMainPage = mainPage.getProductDetailsFromMainPage("Campaigns", 1);
+        mainPage.openProductPage("Campaigns", 1);
+
+        productPage = new ShopProductPage(driver);
+        HashMap<String, String> detailsFromProductPage = productPage.getProductDetailsFromProductPage();
+
+        Assert.assertTrue(productPage.isPriceTheSame(detailsFromMainPage, detailsFromProductPage));
+    }
+
+    @After
+    public void tierDown() {
+        driver.quit();
+        driver = null;
     }
 
 }
