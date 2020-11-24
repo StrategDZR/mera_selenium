@@ -13,7 +13,7 @@ import java.util.List;
 public class ShopMainPage {
     private WebDriver driver;
     private WebDriverWait wait;
-    Logger logger = LoggerFactory.getLogger(MenuPage.class);
+    Logger logger = LoggerFactory.getLogger(ShopMainPage.class);
 
     //Locators
     private final String products = "//li[@class=\"product column shadow hover-light\"]";
