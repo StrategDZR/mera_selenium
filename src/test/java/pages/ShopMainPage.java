@@ -34,10 +34,10 @@ public class ShopMainPage extends AbstractPage {
         return stickerEls.size();
     }
 
-
     public void openProductPage(String block, int positionOfProduct) {
         logger.info("Click on product with position " + positionOfProduct);
         String productElement = "(//h3[contains(., " + block + ")]/following-sibling::div//li)[" + positionOfProduct + "]";
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath(productElement)));
         driver.findElement(By.xpath(productElement)).click();
     }
 
@@ -46,13 +46,23 @@ public class ShopMainPage extends AbstractPage {
         HashMap<String, String> detailsObj = new HashMap<>();
 
         String productElement = "(//h3[contains(., " + block + ")]/following-sibling::div//li)[" + positionOfProduct + "]";
+
         WebElement product = driver.findElement(By.xpath(productElement));
+        WebElement regularPrice = product.findElement(By.xpath("//div[@class=\"price-wrapper\"]/*[@class=\"regular-price\"]"));
+        WebElement campaignPrice = product.findElement(By.xpath("//div[@class=\"price-wrapper\"]/*[@class=\"campaign-price\"]"));
 
         detailsObj.put("name", product.findElement(By.xpath("//div[@class=\"name\"]")).getText());
-        detailsObj.put("regular_price", product.findElement(By.xpath("//div[@class=\"price-wrapper\"]/*[@class=\"regular-price\"]")).getText());
-        detailsObj.put("campaign_price", product.findElement(By.xpath("//div[@class=\"price-wrapper\"]/*[@class=\"campaign-price\"]")).getText());
+
+        detailsObj.put("regular_price", regularPrice.getText());
+        detailsObj.put("regular_price_text_decoration", regularPrice.getCssValue("text-decoration"));
+        detailsObj.put("regular_price_text_color", regularPrice.getCssValue("color"));
+        detailsObj.put("regular_price_font_size", regularPrice.getCssValue("font-size"));
+
+        detailsObj.put("campaign_price", campaignPrice.getText());
+        detailsObj.put("campaign_price_font_weight", campaignPrice.getCssValue("font-weight"));
+        detailsObj.put("campaign_price_text_color", campaignPrice.getCssValue("color"));
+        detailsObj.put("campaign_price_font_size", campaignPrice.getCssValue("font-size"));
 
         return detailsObj;
     }
-
 }
