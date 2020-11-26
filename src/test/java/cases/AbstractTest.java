@@ -5,10 +5,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import pages.LoginPage;
+import pages.AdminLoginPage;
 
 import java.util.concurrent.TimeUnit;
 
@@ -29,13 +28,17 @@ public class AbstractTest {
     }
 
     public void openPageAndLoginAsAdmin(String url) {
-        LoginPage loginPage = new LoginPage(driver);
+        AdminLoginPage adminLoginPage = new AdminLoginPage(driver);
         driver.navigate().to(url);
-        wait.until(ExpectedConditions.elementToBeClickable(By.xpath(loginPage.loginButton)));
-        loginPage.loginAsAdmin();
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath(adminLoginPage.loginButton)));
+        adminLoginPage.loginAsAdmin();
     }
 
     public void openPage(String url) {
         driver.navigate().to(url);
+    }
+
+    public void logout(){
+
     }
 }

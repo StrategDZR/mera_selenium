@@ -6,7 +6,7 @@ import org.openqa.selenium.WebDriver;
 import static config.app.ADMIN_LOGIN;
 import static config.app.ADMIN_PASS;
 
-public class LoginPage {
+public class AdminLoginPage {
     private WebDriver driver;
 
     //Locators
@@ -14,7 +14,7 @@ public class LoginPage {
     public String passwordInput = "//input[@name=\"password\"]";
     public String loginButton = "//button[@name=\"login\"]";
 
-    public LoginPage(WebDriver driver) {
+    public AdminLoginPage(WebDriver driver) {
         this.driver = driver;
     }
 

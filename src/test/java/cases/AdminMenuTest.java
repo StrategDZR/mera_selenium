@@ -9,7 +9,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import pages.LoginPage;
+import pages.AdminLoginPage;
 import pages.MenuPage;
 
 import java.util.List;
@@ -30,7 +30,7 @@ public class AdminMenuTest {
     private WebDriver driver;
     private WebDriverWait wait;
 
-    LoginPage loginPage;
+    AdminLoginPage adminLoginPage;
     MenuPage menuPage;
 
     @Before
@@ -39,16 +39,16 @@ public class AdminMenuTest {
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         wait = new WebDriverWait(driver, 10);
 
-        loginPage = new LoginPage(driver);
+        adminLoginPage = new AdminLoginPage(driver);
         menuPage = new MenuPage(driver);
     }
 
     @Test
     public void testAdminMenu() {
         driver.navigate().to(LITECART_ADMIN);
-        wait.until(ExpectedConditions.elementToBeClickable(By.xpath(loginPage.loginButton)));
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath(adminLoginPage.loginButton)));
 
-        loginPage.loginAsAdmin();
+        adminLoginPage.loginAsAdmin();
 
         List<MenuPage.ListOfMenuItems> menuItems = menuPage.getMenuItems();
         menuItems.forEach(item -> {

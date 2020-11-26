@@ -65,4 +65,12 @@ public class ShopMainPage extends AbstractPage {
 
         return detailsObj;
     }
+
+    public void login(String email, String password){
+
+    }
+
+    public void clickOnCreateAccountLink() {
+
+    }
 }
