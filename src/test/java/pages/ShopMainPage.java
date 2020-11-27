@@ -14,6 +14,11 @@ public class ShopMainPage extends AbstractPage {
     private final String productsElement = "//li[@class=\"product column shadow hover-light\"]";
     private final String stickerElement = ".//div[contains(@class, \"sticker\")]";
     private final String shopMainPageUniqueElement = "//div[@id=\"box-most-popular\"]";
+    private final String createAccountLinkLoc = "//td/a[contains(@href, \"create_account\")]";
+    private final String emailInputLoc = "//input[@name=\"email\"]";
+    private final String passwordInputLoc = "//input[@name=\"password\"]";
+    private final String loginButtonLoc = "//button[@name=\"login\"]";
+    private final String logoutButtonLoc = "//li/a[contains(@href, \"logout\")]";
 
     public ShopMainPage(WebDriver driver) {
         super(driver);
@@ -66,11 +71,23 @@ public class ShopMainPage extends AbstractPage {
         return detailsObj;
     }
 
-    public void login(String email, String password){
-
+    public void login(String email, String password) {
+        logger.info("Login from main page as " + email);
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath(loginButtonLoc)));
+        driver.findElement(By.xpath(emailInputLoc)).sendKeys(email);
+        driver.findElement(By.xpath(passwordInputLoc)).sendKeys(password);
+        driver.findElement(By.xpath(loginButtonLoc)).click();
     }
 
     public void clickOnCreateAccountLink() {
+        logger.info("Click on Create Account link");
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath(createAccountLinkLoc)));
+        driver.findElement(By.xpath(createAccountLinkLoc)).click();
+    }
 
+
+    public void logout() {
+        logger.info("Logging out...");
+        driver.findElement(By.xpath(logoutButtonLoc)).click();
     }
 }

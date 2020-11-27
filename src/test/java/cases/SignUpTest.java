@@ -31,7 +31,7 @@ public class SignUpTest extends AbstractTest {
     String password;
 
     @Test
-    public void SignUpTest() {
+    public void signUpTest() {
         openPage(LITECART_SHOP_MAIN);
 
         mainPage = new ShopMainPage(driver);
@@ -39,12 +39,11 @@ public class SignUpTest extends AbstractTest {
 
         createAccountPage = new CreateAccountPage(driver);
         createAccountPage.fillAllFieldsWithRandomData();
-        username = createAccountPage.getUserName();
+        username = createAccountPage.getEmail();
         password = createAccountPage.getPassword();
-        createAccountPage.clickOnCreateAccountButton();
-        logout();
+        mainPage.logout();
 
         mainPage.login(username, password);
-        logout();
+        mainPage.logout();
     }
 }

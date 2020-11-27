@@ -18,10 +18,6 @@ public class AbstractTest {
 
     @Before
     public void setUp() {
-        if (driver != null){
-            return;
-        }
-
         driver = new ChromeDriver(new ChromeOptions().addArguments("--incognito"));
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         wait = new WebDriverWait(driver, 10);
@@ -36,9 +32,5 @@ public class AbstractTest {
 
     public void openPage(String url) {
         driver.navigate().to(url);
-    }
-
-    public void logout(){
-
     }
 }
