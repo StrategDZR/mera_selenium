@@ -29,4 +29,8 @@ public class AbstractTest {
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath(loginPage.loginButton)));
         loginPage.loginAsAdmin();
     }
+
+    public void openPage(String url) {
+        driver.navigate().to(url);
+    }
 }
