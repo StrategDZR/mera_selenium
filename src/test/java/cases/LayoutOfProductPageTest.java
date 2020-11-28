@@ -2,6 +2,7 @@ package cases;
 
 import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import pages.ShopMainPage;
 import pages.ShopProductPage;
@@ -35,78 +36,57 @@ public class LayoutOfProductPageTest extends AbstractTest {
 
     ShopProductPage productPage;
     ShopMainPage mainPage;
+    HashMap<String, String> detailsFromMainPage;
+    HashMap<String, String> detailsFromProductPage;
 
-    @Test
-    public void checkTextIsTheSameOnMainAndProductPages() {
+    @Before
+    public void setUp() {
+        super.setUp();
+
         openPage(LITECART_SHOP_MAIN);
 
         mainPage = new ShopMainPage(driver);
-        HashMap<String, String> detailsFromMainPage = mainPage.getProductDetailsFromMainPage("Campaigns", 1);
+        detailsFromMainPage = mainPage.getProductDetailsFromMainPage("Campaigns", 1);
         mainPage.openProductPage("Campaigns", 1);
 
         productPage = new ShopProductPage(driver);
-        HashMap<String, String> detailsFromProductPage = productPage.getProductDetailsFromProductPage();
+        detailsFromProductPage = productPage.getProductDetailsFromProductPage();
+    }
 
-        Assert.assertTrue(isNameTheSame(detailsFromMainPage, detailsFromProductPage));
+    @Test
+    public void checkTextIsTheSameOnMainAndProductPages() {
+        Assert.assertTrue("Incorrect page is opened: name is not the same",
+                isNameTheSame(detailsFromMainPage, detailsFromProductPage));
     }
 
     @Test
     public void checkPriceIsTheSameOnMainAndProductPages() {
-        openPage(LITECART_SHOP_MAIN);
-
-        mainPage = new ShopMainPage(driver);
-        HashMap<String, String> detailsFromMainPage = mainPage.getProductDetailsFromMainPage("Campaigns", 1);
-        mainPage.openProductPage("Campaigns", 1);
-
-        productPage = new ShopProductPage(driver);
-        HashMap<String, String> detailsFromProductPage = productPage.getProductDetailsFromProductPage();
-
-        Assert.assertTrue(isPriceTheSame(detailsFromMainPage, detailsFromProductPage));
+        Assert.assertTrue("Incorrect page is opened: price is not the same",
+                isPriceTheSame(detailsFromMainPage, detailsFromProductPage));
     }
 
     @Test
     public void checkRegularPriceIsStrikethroughAndGreyOnMainAndProductPage() {
-        openPage(LITECART_SHOP_MAIN);
-
-        mainPage = new ShopMainPage(driver);
-        HashMap<String, String> detailsFromMainPage = mainPage.getProductDetailsFromMainPage("Campaigns", 1);
-        mainPage.openProductPage("Campaigns", 1);
-
-        productPage = new ShopProductPage(driver);
-        HashMap<String, String> detailsFromProductPage = productPage.getProductDetailsFromProductPage();
-
-        Assert.assertTrue(isRegularPriceStrikethroughAndGrey(detailsFromMainPage)
-                && isRegularPriceStrikethroughAndGrey(detailsFromProductPage));
+        Assert.assertTrue("Incorrect text decoration: regular price on the main page is not strikethrough and grey",
+                isRegularPriceStrikethroughAndGrey(detailsFromMainPage));
+        Assert.assertTrue("Incorrect text decoration: regular price on the product page is not strikethrough and grey",
+                isRegularPriceStrikethroughAndGrey(detailsFromProductPage));
     }
 
     @Test
     public void checkCampaignPriceIsBoldAndRedOnMainAndProductPage() {
-        openPage(LITECART_SHOP_MAIN);
-
-        mainPage = new ShopMainPage(driver);
-        HashMap<String, String> detailsFromMainPage = mainPage.getProductDetailsFromMainPage("Campaigns", 1);
-        mainPage.openProductPage("Campaigns", 1);
-
-        productPage = new ShopProductPage(driver);
-        HashMap<String, String> detailsFromProductPage = productPage.getProductDetailsFromProductPage();
-
-        Assert.assertTrue(isCampaignPriceBoldAndRed(detailsFromMainPage)
-                && isCampaignPriceBoldAndRed(detailsFromProductPage));
+        Assert.assertTrue("Incorrect text decoration: campaign price on the main page is not bold and red",
+                isCampaignPriceBoldAndRed(detailsFromMainPage));
+        Assert.assertTrue("Incorrect text decoration: campaign price on the product page is not bold and red",
+                isCampaignPriceBoldAndRed(detailsFromProductPage));
     }
 
     @Test
     public void checkCampaignPriceIsBiggerThanRegularPriceOnMainAndProductPage() {
-        openPage(LITECART_SHOP_MAIN);
-
-        mainPage = new ShopMainPage(driver);
-        HashMap<String, String> detailsFromMainPage = mainPage.getProductDetailsFromMainPage("Campaigns", 1);
-        mainPage.openProductPage("Campaigns", 1);
-
-        productPage = new ShopProductPage(driver);
-        HashMap<String, String> detailsFromProductPage = productPage.getProductDetailsFromProductPage();
-
-        Assert.assertTrue(isCampaignFontIsBigger(detailsFromMainPage)
-                && isCampaignFontIsBigger(detailsFromProductPage));
+        Assert.assertTrue("Incorrect text decoration: campaign price on the main page is not bigger than regular price",
+                isCampaignFontIsBigger(detailsFromMainPage));
+        Assert.assertTrue("Incorrect text decoration: campaign price on the main page is not bigger than regular price",
+                isCampaignFontIsBigger(detailsFromProductPage));
     }
 
     @After
