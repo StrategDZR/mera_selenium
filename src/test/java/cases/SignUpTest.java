@@ -17,6 +17,7 @@ package cases;
 Если сценарий дошёл до конца, то есть созданный пользователь смог выполнить вход и выход -- значит создание прошло успешно.
  */
 
+import org.junit.After;
 import org.junit.Test;
 import pages.CreateAccountPage;
 import pages.ShopMainPage;
@@ -45,5 +46,11 @@ public class SignUpTest extends AbstractTest {
 
         mainPage.login(username, password);
         mainPage.logout();
+    }
+
+    @After
+    public void tierDown() {
+        driver.quit();
+        driver = null;
     }
 }
