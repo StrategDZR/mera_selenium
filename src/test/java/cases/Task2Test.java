@@ -10,7 +10,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.AdminMainPage;
-import pages.LoginPage;
+import pages.AdminLoginPage;
 
 import java.util.concurrent.TimeUnit;
 import static config.app.*;
@@ -19,7 +19,7 @@ public class Task2Test {
     private WebDriver driver;
     private WebDriverWait wait;
 
-    LoginPage loginPage;
+    AdminLoginPage adminLoginPage;
     AdminMainPage adminMainPage;
 
     @Before
@@ -27,7 +27,7 @@ public class Task2Test {
         driver = new ChromeDriver(new ChromeOptions().addArguments("--incognito"));
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         wait = new WebDriverWait(driver, 10);
-        loginPage = new LoginPage(driver);
+        adminLoginPage = new AdminLoginPage(driver);
         adminMainPage = new AdminMainPage(driver);
     }
 
@@ -35,9 +35,9 @@ public class Task2Test {
     public void testLoginToAdmin() {
         //следующие две строки тоже вынесу в отдельный класс-хелпер в следующем задании
         driver.navigate().to(LITECART_ADMIN);
-        wait.until(ExpectedConditions.elementToBeClickable(By.xpath(loginPage.loginButton)));
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath(adminLoginPage.loginButton)));
 
-        loginPage.loginAsAdmin();
+        adminLoginPage.loginAsAdmin();
         adminMainPage.checkAdminPageIsOpened();
     }
 
