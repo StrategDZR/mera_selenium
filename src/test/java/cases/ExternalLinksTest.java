@@ -3,8 +3,11 @@ package cases;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Test;
+import org.openqa.selenium.WebElement;
 import pages.AddNewCountryPage;
 import pages.AdminCountriesPage;
+
+import java.util.List;
 
 import static config.app.LITECART_ADMIN;
 
@@ -27,19 +30,24 @@ import static config.app.LITECART_ADMIN;
 Не забудьте, что новое окно открывается не мгновенно, поэтому требуется ожидание открытия окна.
  */
 
-public class ExternalLinksTest extends AbstractTest{
+public class ExternalLinksTest extends AbstractTest {
 
     AdminCountriesPage countriesPage;
     AddNewCountryPage addNewCountryPage;
 
     @Test
-    public void externalLinksOpensInNewTab(){
+    public void externalLinksOpensInNewTab() {
         openPageAndLoginAsAdmin(LITECART_ADMIN + "?app=countries&doc=countries");
         countriesPage = new AdminCountriesPage(driver);
         countriesPage.clickOnAddNewCountry();
         addNewCountryPage = new AddNewCountryPage(driver);
-        addNewCountryPage.clickOnExternalLink();
-        Assert.assertTrue(isSecondTabOpened());
+
+        List<WebElement> extLinks = addNewCountryPage.getAllExternalLinks();
+        extLinks.forEach(webElement -> {
+            webElement.click();
+            Assert.assertTrue(isSecondTabOpened());
+            closeSecondTab();
+        });
     }
 
     @After
