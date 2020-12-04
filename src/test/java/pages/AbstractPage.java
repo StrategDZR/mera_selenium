@@ -18,7 +18,7 @@ public class AbstractPage {
 
     public final WebDriver driver;
     public final WebDriverWait wait;
-    static final Logger logger = LoggerFactory.getLogger(AbstractPage.class);
+    public static final Logger logger = LoggerFactory.getLogger(AbstractPage.class);
 
     public AbstractPage(WebDriver driver) {
         this.driver = driver;

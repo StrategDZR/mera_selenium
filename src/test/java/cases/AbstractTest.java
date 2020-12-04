@@ -11,6 +11,8 @@ import pages.AdminLoginPage;
 
 import java.util.concurrent.TimeUnit;
 
+import static pages.AbstractPage.logger;
+
 public class AbstractTest {
 
     public WebDriver driver;
@@ -24,6 +26,7 @@ public class AbstractTest {
     }
 
     public void openPageAndLoginAsAdmin(String url) {
+        logger.info("Opening the URL as admin: "  + url);
         AdminLoginPage adminLoginPage = new AdminLoginPage(driver);
         driver.navigate().to(url);
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath(adminLoginPage.loginButton)));
@@ -31,6 +34,13 @@ public class AbstractTest {
     }
 
     public void openPage(String url) {
+        logger.info("Opening URL " + url);
         driver.navigate().to(url);
+    }
+
+    public boolean isSecondTabOpened() {
+        logger.info("Checking if the second tab opened");
+        wait.until(ExpectedConditions.numberOfWindowsToBe(2));
+        return driver.getWindowHandles().size() == 2;
     }
 }

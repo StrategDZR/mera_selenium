@@ -18,6 +18,7 @@ public class AdminCountriesPage extends AbstractPage {
     private final String findCountryByNameElement = "//form[@name=\"countries_form\"]//td/a[contains(., \"%s\")]";
     private final String countryPageElement = "//form[@name=\"countries_form\"]";
     private final String zoneNamesElement = "//table[@id=\"table-zones\"]//tr/td/input[contains(@name, \"[name]\")][not(@value=\"\")]";
+    private final String addNewCountryButtonLoc = "//a[@class=\"button\"][contains(@href, \"edit_country\")]";
 
     public AdminCountriesPage(WebDriver driver) {
         super(driver);
@@ -48,5 +49,10 @@ public class AdminCountriesPage extends AbstractPage {
     public List<WebElement> getZonesList() {
         logger.info("Getting list of zones");
         return getList(zoneNamesElement);
+    }
+
+    public void clickOnAddNewCountry() {
+        logger.info("Clicking on Add New Country button");
+        clickOn(addNewCountryButtonLoc);
     }
 }
