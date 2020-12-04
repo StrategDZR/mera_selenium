@@ -14,6 +14,7 @@ package cases;
 6) удалить все товары из корзины один за другим, после каждого удаления подождать, пока внизу обновится таблица
  */
 
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Test;
 import pages.ShopCartPage;
@@ -44,5 +45,11 @@ public class CartTest extends AbstractTest {
         cartPage = new ShopCartPage(driver);
         cartPage.deleteAllProducts();
         Assert.assertTrue(cartPage.IsCartEmpty());
+    }
+
+    @After
+    public void tierDown() {
+        driver.quit();
+        driver = null;
     }
 }
