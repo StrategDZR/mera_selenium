@@ -5,11 +5,15 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.logging.LogEntry;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.AdminLoginPage;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
+
+import static pages.AbstractPage.logger;
 
 public class AbstractTest {
 
@@ -32,5 +36,11 @@ public class AbstractTest {
 
     public void openPage(String url) {
         driver.navigate().to(url);
+    }
+
+    public boolean isConsoleErrorExists() {
+        List<LogEntry> errors = driver.manage().logs().get("browser").getAll();
+        logger.info("Following errors were found: " + errors);
+        return errors.size() > 0;
     }
 }
