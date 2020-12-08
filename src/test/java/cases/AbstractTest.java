@@ -10,6 +10,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.AdminLoginPage;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -28,6 +29,7 @@ public class AbstractTest {
     }
 
     public void openPageAndLoginAsAdmin(String url) {
+        logger.info("Opening the URL as admin: " + url);
         AdminLoginPage adminLoginPage = new AdminLoginPage(driver);
         driver.navigate().to(url);
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath(adminLoginPage.loginButton)));
@@ -35,7 +37,22 @@ public class AbstractTest {
     }
 
     public void openPage(String url) {
+        logger.info("Opening URL " + url);
         driver.navigate().to(url);
+    }
+
+    public boolean isSecondTabOpened() {
+        logger.info("Checking if the second tab opened");
+        wait.until(ExpectedConditions.numberOfWindowsToBe(2));
+        return driver.getWindowHandles().size() == 2;
+    }
+
+    public void closeSecondTab() {
+        logger.info("Closing second tab");
+        List<String> tabs = new ArrayList<>(driver.getWindowHandles());
+        driver.switchTo().window(tabs.get(1));
+        driver.close();
+        driver.switchTo().window(tabs.get(0));
     }
 
     public boolean isConsoleErrorExists() {
