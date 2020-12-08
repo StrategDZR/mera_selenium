@@ -5,6 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.logging.LogEntry;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.AdminLoginPage;
@@ -52,5 +53,11 @@ public class AbstractTest {
         driver.switchTo().window(tabs.get(1));
         driver.close();
         driver.switchTo().window(tabs.get(0));
+    }
+
+    public boolean isConsoleErrorExists() {
+        List<LogEntry> errors = driver.manage().logs().get("browser").getAll();
+        logger.info("Following errors were found: " + errors);
+        return errors.size() > 0;
     }
 }

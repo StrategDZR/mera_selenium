@@ -67,4 +67,10 @@ public class AbstractPage {
 
         sendKeysTo(locatorByXpath, path, false);
     }
+
+    public void clickOnText(String text) {
+        String xpath = "//*[text()=\"" + text + "\"]";
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath(xpath)));
+        driver.findElement(By.xpath(xpath)).click();
+    }
 }

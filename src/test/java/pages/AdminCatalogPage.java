@@ -9,7 +9,9 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Formatter;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 @SuppressWarnings("SameParameterValue")
@@ -47,6 +49,8 @@ public class AdminCatalogPage extends AbstractPage {
 
     private final String searchInputLoc = "//input[@name=\"query\"]";
     private final String searchResultLoc = "//a[contains(., \"%s\")]";
+
+    private final String productsLoc = "//img[contains(@src, \"cache\")][not(@title=\"My Store\")]/following-sibling::a";
 
 
     public AdminCatalogPage(WebDriver driver) {
@@ -204,5 +208,17 @@ public class AdminCatalogPage extends AbstractPage {
         logger.info("Making search in catalog by: " + productName);
         sendKeysTo(searchInputLoc, productName, false);
         driver.findElement(By.xpath(searchInputLoc)).sendKeys(Keys.ENTER);
+    }
+
+    public List<String> getProductNamesFromCatalogPage() {
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(productsLoc)));
+        List<WebElement> els = driver.findElements(By.xpath(productsLoc));
+        List<String> names = new ArrayList<>();
+
+        for (WebElement el : els) {
+            names.add(el.getText());
+        }
+
+        return names;
     }
 }
