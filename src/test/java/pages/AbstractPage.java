@@ -18,7 +18,7 @@ public class AbstractPage {
 
     public final WebDriver driver;
     public final WebDriverWait wait;
-    static final Logger logger = LoggerFactory.getLogger(AbstractPage.class);
+    public static final Logger logger = LoggerFactory.getLogger(AbstractPage.class);
 
     public AbstractPage(WebDriver driver) {
         this.driver = driver;
@@ -66,5 +66,11 @@ public class AbstractPage {
         }
 
         sendKeysTo(locatorByXpath, path, false);
+    }
+
+    public void clickOnText(String text) {
+        String xpath = "//*[text()=\"" + text + "\"]";
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath(xpath)));
+        driver.findElement(By.xpath(xpath)).click();
     }
 }
