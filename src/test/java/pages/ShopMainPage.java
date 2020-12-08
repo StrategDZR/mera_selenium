@@ -19,6 +19,7 @@ public class ShopMainPage extends AbstractPage {
     private final String passwordInputLoc = "//input[@name=\"password\"]";
     private final String loginButtonLoc = "//button[@name=\"login\"]";
     private final String logoutButtonLoc = "//li/a[contains(@href, \"logout\")]";
+    private final String openCheckoutLoc = "//a[contains(@href, \"/checkout\")][@class=\"link\"]";
 
     public ShopMainPage(WebDriver driver) {
         super(driver);
@@ -41,7 +42,7 @@ public class ShopMainPage extends AbstractPage {
 
     public void openProductPage(String block, int positionOfProduct) {
         logger.info("Click on product with position " + positionOfProduct);
-        String productElement = "(//h3[contains(., " + block + ")]/following-sibling::div//li)[" + positionOfProduct + "]";
+        String productElement = "(//h3[contains(., \"" + block + "\")]/following-sibling::div//li)[" + positionOfProduct + "]";
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath(productElement)));
         driver.findElement(By.xpath(productElement)).click();
     }
@@ -85,9 +86,13 @@ public class ShopMainPage extends AbstractPage {
         driver.findElement(By.xpath(createAccountLinkLoc)).click();
     }
 
-
     public void logout() {
         logger.info("Logging out...");
         driver.findElement(By.xpath(logoutButtonLoc)).click();
+    }
+
+    public void openCheckout() {
+        logger.info("Opening Checkout page");
+        clickOn(openCheckoutLoc);
     }
 }

@@ -2,6 +2,7 @@ package pages;
 
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -9,11 +10,16 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.concurrent.TimeUnit;
 
 public class ShopProductPage extends AbstractPage {
 
     //Locators
     private final String productPageUniqueElement = "//div[@id=\"box-product\"]";
+    private final String addTOCartButtonLoc = "//button[@name=\"add_cart_product\"]";
+    private final String setSizeSelectorLoc = "//select[@name=\"options[Size]\"]";
+    private final String setMediumSizeOptionLoc = "//option[@value=\"Medium\"]";
+
 
     public ShopProductPage(WebDriver driver) {
         super(driver);
@@ -110,5 +116,21 @@ public class ShopProductPage extends AbstractPage {
     private static boolean checkTextIsBold(String rawParametersFromCss) {
         logger.info("Checking if text is bold");
         return rawParametersFromCss.contains("700");
+    }
+
+    public void setMediumSize() {
+        logger.info("Trying to set Medium Size");
+        try {
+            driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+            clickOn(setSizeSelectorLoc);
+            clickOn(setMediumSizeOptionLoc);
+        } catch (TimeoutException e) {
+            System.err.println("No Size field found");
+        }
+    }
+
+    public void clickOnAddToCartButton() {
+        logger.info("Clicking on Add to Cart button");
+        clickOn(addTOCartButtonLoc);
     }
 }
