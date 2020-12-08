@@ -9,7 +9,7 @@ import java.util.List;
 
 public class AddNewCountryPage extends AbstractPage {
 
-    private final String uniquePageElementLoc = "//h1[contains(., \" Add New Country\")]";
+    private final String uniquePageElementLoc = "//h1[text()=\" Add New Country\"]";
     private final String externalLink = "//i[contains(@class, \"external-link\")]";
 
     public AddNewCountryPage(WebDriver driver) {
